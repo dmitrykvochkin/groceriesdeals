@@ -1,0 +1,23 @@
+[project]
+name = "groceriesdeals"
+version = "0.1.0"
+description = "Launch Genymotion SaaS cloud devices"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "alembic>=1.18.5",
+    "fastmcp==3.4.4",
+    "gmsaas>=1.14.1",
+    "psycopg[binary]>=3.3.4",
+    "pydantic-settings>=2.14.2",
+    "sqlmodel>=0.0.39",
+    "uiautomator2>=3.0.0",
+]
+
+[project.scripts]
+genymotion-cloud = "groceriesdeals.genymotion:main"
+groceries-mcp = "groceriesdeals.mcp_server:main"
+
+[build-system]
+requires = ["uv_build>=0.11.13,<0.12.0"]
+build-backend = "uv_build"

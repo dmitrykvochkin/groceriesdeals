@@ -1,0 +1,857 @@
+[
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/2/2/0",
+    "depth": 16,
+    "attribute": "content-desc",
+    "value": "Terug",
+    "bounds": "[31,84][115,168]",
+    "resource_id": "Generic.Action.Back",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/2/3/0",
+    "depth": 16,
+    "attribute": "text",
+    "value": "Acties",
+    "bounds": "[136,100][263,151]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/1/0",
+    "depth": 19,
+    "attribute": "content-desc",
+    "value": "Alles van Schmidt",
+    "bounds": "[10,219][384,302]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/1/0/0",
+    "depth": 20,
+    "attribute": "content-desc",
+    "value": "Alles van Schmidt",
+    "bounds": "[10,219][384,302]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/1/0/0/0",
+    "depth": 21,
+    "attribute": "text",
+    "value": "Alles van Schmidt",
+    "bounds": "[41,238][352,283]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/3/0",
+    "depth": 19,
+    "attribute": "content-desc",
+    "value": "Schnitzels",
+    "bounds": "[405,219][649,302]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/3/0/0",
+    "depth": 20,
+    "attribute": "content-desc",
+    "value": "Schnitzels",
+    "bounds": "[405,219][649,302]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/3/0/0/0",
+    "depth": 21,
+    "attribute": "text",
+    "value": "Schnitzels",
+    "bounds": "[436,238][617,283]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/5/0",
+    "depth": 19,
+    "attribute": "content-desc",
+    "value": "Biefstuk",
+    "bounds": "[670,219][876,302]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/5/0/0",
+    "depth": 20,
+    "attribute": "content-desc",
+    "value": "Biefstuk",
+    "bounds": "[670,219][876,302]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/5/0/0/0",
+    "depth": 21,
+    "attribute": "text",
+    "value": "Biefstuk",
+    "bounds": "[701,238][844,283]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/7/0",
+    "depth": 19,
+    "attribute": "content-desc",
+    "value": "Visburgers",
+    "bounds": "[897,219][1080,302]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/7/0/0",
+    "depth": 20,
+    "attribute": "content-desc",
+    "value": "Visburgers",
+    "bounds": "[897,219][1080,302]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/1/0/0/7/0/0/0",
+    "depth": 21,
+    "attribute": "text",
+    "value": "Visburgers",
+    "bounds": "[928,238][1080,283]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/1/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "Scandinavisch gekruid, Gravad lachs >, 3.99, 4.99, Schmidt Zeevis, 100 gram",
+    "bounds": "[21,334][531,461]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/1/0/0/0",
+    "depth": 22,
+    "attribute": "text",
+    "value": "3.99",
+    "bounds": "[42,334][122,348]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/1/0/0/1",
+    "depth": 22,
+    "attribute": "text",
+    "value": "4.99",
+    "bounds": "[132,334][202,345]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/1/0/0/3",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Schmidt Zeevis",
+    "bounds": "[42,357][277,396]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/1/0/0/4",
+    "depth": 22,
+    "attribute": "text",
+    "value": "100 gram",
+    "bounds": "[42,401][184,440]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/3/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "Visspecialist sinds 1908, Tonijnburgers >, 3.99, 4.99, Schmidt Zeevis, 2 x 90 gram, Diepvries",
+    "bounds": "[548,334][1058,461]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/3/0/0/0",
+    "depth": 22,
+    "attribute": "text",
+    "value": "3.99",
+    "bounds": "[569,334][649,348]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/3/0/0/1",
+    "depth": 22,
+    "attribute": "text",
+    "value": "4.99",
+    "bounds": "[659,334][729,345]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/3/0/0/3",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Schmidt Zeevis",
+    "bounds": "[569,357][804,396]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/3/0/0/4",
+    "depth": 22,
+    "attribute": "text",
+    "value": "2 x 90 gram",
+    "bounds": "[569,401][751,440]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/3/0/0/6",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Diepvries",
+    "bounds": "[779,401][924,440]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/5/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[21,482][531,992]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/5/0/0/0",
+    "depth": 22,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[21,482][531,992]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/5/0/0/0/2/0",
+    "depth": 24,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[42,914][260,971]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/5/0/0/0/2/0/0",
+    "depth": 25,
+    "attribute": "text",
+    "value": "20% korting",
+    "bounds": "[58,923][245,962]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/6/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[548,482][1058,992]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/6/0/0/0",
+    "depth": 22,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[548,482][1058,992]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/6/0/0/0/2/0",
+    "depth": 24,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[569,914][788,971]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/6/0/0/0/2/0/0",
+    "depth": 25,
+    "attribute": "text",
+    "value": "20% korting",
+    "bounds": "[585,923][772,962]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/7/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "Visspecialist sinds 1908, Sliptong >, 7.19, 8.99, Schmidt Zeevis, 2 x 100 gram, Diepvries",
+    "bounds": "[21,992][531,1313]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/7/0/0/1",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Visspecialist sinds 1908",
+    "bounds": "[65,1013][429,1052]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/7/0/0/3",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Sliptong >",
+    "bounds": "[41,1057][218,1102]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/7/0/0/4",
+    "depth": 22,
+    "attribute": "text",
+    "value": "7.19",
+    "bounds": "[42,1111][104,1156]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/7/0/0/5",
+    "depth": 22,
+    "attribute": "text",
+    "value": "8.99",
+    "bounds": "[114,1114][184,1153]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/7/0/0/7",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Schmidt Zeevis",
+    "bounds": "[42,1165][277,1204]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/7/0/0/8",
+    "depth": 22,
+    "attribute": "text",
+    "value": "2 x 100 gram",
+    "bounds": "[42,1209][238,1248]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/7/0/0/10",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Diepvries",
+    "bounds": "[42,1253][187,1292]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/9/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "Visspecialist sinds 1908, Dorade >, 5.59, 6.99, Schmidt Zeevis, 2 x 70 gram, Diepvries",
+    "bounds": "[548,992][1058,1269]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/9/0/0/1",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Visspecialist sinds 1908",
+    "bounds": "[592,1013][956,1052]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/9/0/0/3",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Dorade >",
+    "bounds": "[568,1057][728,1102]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/9/0/0/4",
+    "depth": 22,
+    "attribute": "text",
+    "value": "5.59",
+    "bounds": "[569,1111][647,1156]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/9/0/0/5",
+    "depth": 22,
+    "attribute": "text",
+    "value": "6.99",
+    "bounds": "[657,1114][726,1153]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/9/0/0/7",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Schmidt Zeevis",
+    "bounds": "[569,1165][804,1204]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/9/0/0/8",
+    "depth": 22,
+    "attribute": "text",
+    "value": "2 x 70 gram",
+    "bounds": "[569,1209][748,1248]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/9/0/0/10",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Diepvries",
+    "bounds": "[776,1209][921,1248]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/11/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[21,1326][531,1836]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/11/0/0/0",
+    "depth": 22,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[21,1326][531,1836]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/11/0/0/0/2/0",
+    "depth": 24,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[42,1758][260,1815]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/11/0/0/0/2/0/0",
+    "depth": 25,
+    "attribute": "text",
+    "value": "20% korting",
+    "bounds": "[58,1767][245,1806]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/12/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "Visspecialist sinds 1908, Rode tonijn saku >, 9.99, 12.49, Schmidt Zeevis, 250 gram, Diepvries",
+    "bounds": "[21,1836][531,2076]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/12/0/0/1",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Visspecialist sinds 1908",
+    "bounds": "[65,1857][429,1896]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/12/0/0/3",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Rode tonijn saku >",
+    "bounds": "[41,1901][364,1946]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/12/0/0/4",
+    "depth": 22,
+    "attribute": "text",
+    "value": "9.99",
+    "bounds": "[42,1955][120,2000]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/12/0/0/5",
+    "depth": 22,
+    "attribute": "text",
+    "value": "12.49",
+    "bounds": "[130,1958][215,1997]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/12/0/0/7",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Schmidt Zeevis",
+    "bounds": "[42,2009][277,2048]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/12/0/0/8",
+    "depth": 22,
+    "attribute": "text",
+    "value": "250 gram",
+    "bounds": "[42,2053][190,2076]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/12/0/0/10",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Diepvries",
+    "bounds": "[218,2053][363,2076]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/14/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[548,1326][1058,1836]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/14/0/0/0",
+    "depth": 22,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[548,1326][1058,1836]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/14/0/0/0/2/0",
+    "depth": 24,
+    "attribute": "content-desc",
+    "value": "20% korting",
+    "bounds": "[569,1758][788,1815]",
+    "resource_id": "",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/14/0/0/0/2/0/0",
+    "depth": 25,
+    "attribute": "text",
+    "value": "20% korting",
+    "bounds": "[585,1767][772,1806]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/15/0/0",
+    "depth": 21,
+    "attribute": "content-desc",
+    "value": "Visspecialist sinds 1908, Octopustentakel >, 4.79, 5.99, Schmidt Zeevis, 100 gram, Diepvries",
+    "bounds": "[548,1836][1058,2076]",
+    "resource_id": "",
+    "class": "android.widget.Button"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/15/0/0/1",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Visspecialist sinds 1908",
+    "bounds": "[592,1857][956,1896]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/15/0/0/3",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Octopustentakel >",
+    "bounds": "[568,1901][891,1946]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/15/0/0/4",
+    "depth": 22,
+    "attribute": "text",
+    "value": "4.79",
+    "bounds": "[569,1955][646,2000]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/15/0/0/5",
+    "depth": 22,
+    "attribute": "text",
+    "value": "5.99",
+    "bounds": "[656,1958][725,1997]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/15/0/0/7",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Schmidt Zeevis",
+    "bounds": "[569,2009][804,2048]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/15/0/0/8",
+    "depth": 22,
+    "attribute": "text",
+    "value": "100 gram",
+    "bounds": "[569,2053][711,2076]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/3/0/0/0/0/0/0/3/2/0/0/0/15/0/0/10",
+    "depth": 22,
+    "attribute": "text",
+    "value": "Diepvries",
+    "bounds": "[739,2053][884,2076]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/0",
+    "depth": 10,
+    "attribute": "content-desc",
+    "value": "Tik dubbel om naar de homepage te gaan, tabblad 1 van 5",
+    "bounds": "[21,2077][228,2215]",
+    "resource_id": "home-tab",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/0/1",
+    "depth": 11,
+    "attribute": "text",
+    "value": "Ontdek",
+    "bounds": "[79,2169][170,2207]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/1",
+    "depth": 10,
+    "attribute": "content-desc",
+    "value": "Tik dubbel om naar de Favorieten te gaan, tabblad 2 van 5",
+    "bounds": "[228,2077][435,2215]",
+    "resource_id": "purchases-page",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/1/1",
+    "depth": 11,
+    "attribute": "text",
+    "value": "Favorieten",
+    "bounds": "[266,2169][398,2207]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/2",
+    "depth": 10,
+    "attribute": "content-desc",
+    "value": "Tik dubbel om naar recepten te gaan, tabblad 3 van 5",
+    "bounds": "[435,2077][643,2215]",
+    "resource_id": "meals-page",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/2/1",
+    "depth": 11,
+    "attribute": "text",
+    "value": "Koken",
+    "bounds": "[500,2169][579,2207]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/3",
+    "depth": 10,
+    "attribute": "content-desc",
+    "value": "Tik dubbel om producten te zoeken, tabblad 4 van 5",
+    "bounds": "[643,2077][851,2215]",
+    "resource_id": "ppp-search",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/3/1",
+    "depth": 11,
+    "attribute": "text",
+    "value": "Zoeken",
+    "bounds": "[700,2169][794,2207]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/4",
+    "depth": 10,
+    "attribute": "content-desc",
+    "value": "Tik dubbel om naar je winkelmandje te gaan, tabblad 5 van 5",
+    "bounds": "[851,2077][1059,2215]",
+    "resource_id": "first-cart",
+    "class": "android.view.ViewGroup"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/4/1/0/0",
+    "depth": 13,
+    "attribute": "text",
+    "value": "10",
+    "bounds": "[972,2094][1008,2143]",
+    "resource_id": "com.picnic.android:id/priceview_amount",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/4/1/0/1",
+    "depth": 13,
+    "attribute": "text",
+    "value": ".",
+    "bounds": "[1008,2094][1019,2143]",
+    "resource_id": "com.picnic.android:id/priceview_dot",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/4/1/0/2",
+    "depth": 13,
+    "attribute": "text",
+    "value": "90",
+    "bounds": "[1011,2096][1041,2131]",
+    "resource_id": "com.picnic.android:id/priceview_cents",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/0/0/0/0/0/0/4/0/1/4/2",
+    "depth": 11,
+    "attribute": "text",
+    "value": "Mandje",
+    "bounds": "[908,2169][1002,2207]",
+    "resource_id": "",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/1/1/0/0/0/0/0/0",
+    "depth": 8,
+    "attribute": "text",
+    "value": "6:11",
+    "bounds": "[10,10][93,53]",
+    "resource_id": "com.android.systemui:id/clock",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/1/1/0/0/0/0/0/0",
+    "depth": 8,
+    "attribute": "content-desc",
+    "value": "6:11 AM",
+    "bounds": "[10,10][93,53]",
+    "resource_id": "com.android.systemui:id/clock",
+    "class": "android.widget.TextView"
+  },
+  {
+    "path": "0/1/1/0/0/0/0/0/1/0/0",
+    "depth": 10,
+    "attribute": "content-desc",
+    "value": "Google Play Store notification: Free up space",
+    "bounds": "[93,0][150,63]",
+    "resource_id": "",
+    "class": "android.widget.ImageView"
+  },
+  {
+    "path": "0/1/1/0/0/1/0/0/0/0/0/0/0",
+    "depth": 12,
+    "attribute": "content-desc",
+    "value": "Wifi signal full.",
+    "bounds": "[894,12][933,51]",
+    "resource_id": "com.android.systemui:id/wifi_signal",
+    "class": "android.widget.ImageView"
+  },
+  {
+    "path": "0/1/1/0/0/1/0/0/0/1",
+    "depth": 9,
+    "attribute": "content-desc",
+    "value": "Phone signal full.",
+    "bounds": "[933,3][972,60]",
+    "resource_id": "com.android.systemui:id/mobile_combo",
+    "class": "android.widget.FrameLayout"
+  },
+  {
+    "path": "0/1/1/0/0/1/0/0/1",
+    "depth": 8,
+    "attribute": "content-desc",
+    "value": "Battery charging, 100 percent.",
+    "bounds": "[988,14][1008,48]",
+    "resource_id": "com.android.systemui:id/battery",
+    "class": "android.widget.LinearLayout"
+  },
+  {
+    "path": "0/2/0/0/0/0/0/1/0",
+    "depth": 8,
+    "attribute": "content-desc",
+    "value": "Back",
+    "bounds": "[124,2215][331,2340]",
+    "resource_id": "com.android.systemui:id/back",
+    "class": "android.widget.ImageView"
+  },
+  {
+    "path": "0/2/0/0/0/0/0/2/0",
+    "depth": 8,
+    "attribute": "content-desc",
+    "value": "Overview",
+    "bounds": "[747,2215][955,2340]",
+    "resource_id": "com.android.systemui:id/recent_apps",
+    "class": "android.widget.ImageView"
+  },
+  {
+    "path": "0/2/0/0/0/0/1/0",
+    "depth": 7,
+    "attribute": "content-desc",
+    "value": "Home",
+    "bounds": "[435,2215][644,2340]",
+    "resource_id": "com.android.systemui:id/home",
+    "class": "android.widget.ImageView"
+  }
+]
