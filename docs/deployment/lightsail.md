@@ -1,0 +1,153 @@
+# Deploy the MCP server to AWS Lightsail
+
+This guide deploys the database-free Groceries Deals MCP server as an immutable
+container on an Ubuntu Lightsail instance. Docker Compose runs the MCP server
+and Caddy, while usage events are delivered to PostHog.
+
+```text
+Internet -> Caddy :443 -> MCP :8438 -> PostHog HTTPS API
+```
+
+Only Caddy publishes host ports. The MCP service is reachable only on the
+private Compose network.
+
+> [!WARNING]
+> This deployment protects transport and infrastructure, but the application
+> does not yet authenticate callers. `openai/subject` is client-provided
+> metadata, not proof that a request came from ChatGPT. Add OAuth, mTLS, or a
+> trusted authentication gateway before advertising the endpoint publicly.
+
+## What the repository provides
+
+- `Dockerfile`: a non-root production image with the locked Python environment.
+- `compose.production.yaml`: MCP and Caddy services.
+- `Caddyfile`: automatic HTTPS and reverse proxy configuration.
+- `.github/workflows/publish-container.yaml`: tests and publishes commit-SHA and
+  `latest` images to GHCR.
+- `scripts/deploy-production.sh`: pulls an exact image and replaces the MCP
+  container.
+
+The workflow publishes `linux/amd64` images. Select an x86-64 Lightsail
+instance, or add an arm64 platform before choosing AWS Graviton.
+
+## 1. Create PostHog configuration
+
+Create or select a PostHog project and record its project token and ingestion
+host. The server requires both values at startup. The token is intended for
+event ingestion, but the environment file should still be protected.
+
+The server sends sanitized events, including bounded and redacted tool
+arguments. Delivery failures after startup are logged and do not interrupt MCP
+requests.
+
+## 2. Publish the first image
+
+Push the repository to GitHub's `main` branch. The **Test and publish
+container** workflow runs unit tests, builds the production image with
+provenance and an SBOM, then publishes:
+
+- `ghcr.io/dmitrykvochkin/groceriesdeals:<full-git-commit-sha>`
+- `ghcr.io/dmitrykvochkin/groceriesdeals:latest`
+
+Use the immutable commit-SHA tag for deployments and rollbacks. If the GHCR
+package is private, create a token with `read:packages` for the host.
+
+## 3. Create the Lightsail instance and DNS
+
+Create an **OS only > Ubuntu 24.04 LTS** x86-64 instance with at least 2 GB RAM.
+Attach a static IPv4 address. In both IPv4 and IPv6 firewalls allow TCP 22 only
+from administrator addresses, TCP 80 and 443 publicly, and optionally UDP 443
+for HTTP/3. Do not open port 8438.
+
+Point an `A` record such as `mcp.example.com` at the static IPv4 address. Add an
+`AAAA` record if IPv6 is enabled. Caddy obtains a certificate after DNS resolves
+and ports 80 and 443 are reachable.
+
+## 4. Install Docker
+
+Install Docker Engine and the Compose plugin by following Docker's
+[Ubuntu installation guide](https://docs.docker.com/engine/install/ubuntu/).
+Allow the deployment user to run Docker, understanding that membership in the
+`docker` group is effectively root access.
+
+## 5. Install deployment configuration
+
+Clone the repository on the instance:
+
+```bash
+sudo mkdir -p /opt/groceriesdeals
+sudo chown ubuntu:ubuntu /opt/groceriesdeals
+git clone https://github.com/dmitrykvochkin/groceriesdeals.git \
+  /opt/groceriesdeals
+```
+
+Create the protected environment file:
+
+```bash
+sudo mkdir -p /etc/groceriesdeals
+sudo cp /opt/groceriesdeals/deploy/production.env.example \
+  /etc/groceriesdeals/groceriesdeals.env
+sudo editor /etc/groceriesdeals/groceriesdeals.env
+```
+
+Set these values:
+
+```dotenv
+MCP_DOMAIN=mcp.example.com
+GROCERIES_IMAGE=ghcr.io/dmitrykvochkin/groceriesdeals
+IMAGE_TAG=latest
+ANONYMOUS_KEY_SECRET=PASTE_A_RANDOM_SECRET
+POSTHOG_PROJECT_TOKEN=phc_YOUR_PROJECT_TOKEN
+POSTHOG_HOST=https://eu.i.posthog.com
+```
+
+Generate the identity secret with `openssl rand -hex 32`, and keep it stable so
+the same OpenAI subject continues to derive the same distinct ID.
+
+```bash
+sudo chown root:docker /etc/groceriesdeals/groceriesdeals.env
+sudo chmod 640 /etc/groceriesdeals/groceriesdeals.env
+```
+
+If GHCR is private, authenticate interactively using a token with
+`read:packages`.
+
+## 6. Deploy and verify
+
+Deploy the full commit SHA from a successful workflow run:
+
+```bash
+cd /opt/groceriesdeals
+./scripts/deploy-production.sh FULL_GIT_COMMIT_SHA
+```
+
+The script validates Compose, pulls the exact application image and pinned
+Caddy image, replaces the services, waits for the MCP health check, and prints
+status.
+
+```bash
+docker compose \
+  --env-file /etc/groceriesdeals/groceriesdeals.env \
+  -f /opt/groceriesdeals/compose.production.yaml ps
+
+docker compose \
+  --env-file /etc/groceriesdeals/groceriesdeals.env \
+  -f /opt/groceriesdeals/compose.production.yaml logs --tail=100 mcp caddy
+
+curl -I https://mcp.example.com/mcp
+```
+
+An HTTP method or MCP protocol error from `curl` is sufficient for the basic
+network check. Use an MCP client for initialize, discovery, and tool-call smoke
+tests, then confirm the sanitized events and merged person in PostHog.
+
+## Updates and rollback
+
+For a release, wait for the workflow, update the deployment checkout when its
+files changed, and run the deployment script with the new full commit SHA. To
+roll back, run it with the previous known-good SHA. No schema migration or data
+rollback is involved.
+
+Monitor container health, MCP/Caddy logs, PostHog delivery warnings, instance
+resources, HTTPS uptime, and operating-system updates. Caddy certificate state
+is stored in named volumes and survives container replacement.

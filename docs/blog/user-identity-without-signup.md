@@ -17,9 +17,9 @@ For each tool call:
 
 1. Read `openai/subject` from the request metadata.
 2. Turn it into your own anonymous customer key.
-3. Store usage against that key.
-4. Apply a small free allowance.
-5. Treat missing or changed IDs as a normal case.
+3. Send sanitized usage events to PostHog under that key.
+4. Analyze usage without introducing an application database.
+5. Treat missing or changed IDs as an untrusted identity change.
 
 This gives you a practical anonymous identity without adding a signup screen at
 the start.
@@ -97,20 +97,20 @@ anonymous customer key =
     HMAC-SHA256(your private secret, "openai:" + openai/subject)
 ```
 
-The result becomes the key in your usage database:
+The result becomes the distinct ID in your analytics system:
 
 ```text
-anonymous_customer_key | successful_uses | period_started_at
-abc123...              | 4               | 2026-07-01
+distinct_id | event                 | session_id
+abc123...   | mcp message processed | 0198...
 ```
 
-Using a keyed hash has two benefits. A leaked database does not reveal the raw
+Using a keyed hash has two benefits. An analytics export does not reveal the raw
 OpenAI identifier, and the value cannot be reused to compare users across
 unrelated systems.
 
 This is the same separation a web app should make between a raw browser cookie
 and its internal customer record. The value arriving from the client is an
-input. Your own database key is the identity your system controls.
+input. Your own PostHog distinct ID is the identity your system controls.
 
 If your allowance should be separate for each ChatGPT workspace, include
 `openai/organization`:
@@ -163,8 +163,8 @@ anonymized ID. A caller may omit the field. Someone can also call a public MCP
 endpoint directly and send a made-up `openai/subject`.
 
 OpenAI does not publish a lifetime or rotation schedule for the subject value.
-Design your database so a changed value creates a new anonymous visitor rather
-than breaking your product.
+Design your identity handling so a changed value cannot silently merge one MCP
+connection into a different visitor.
 
 The web equivalent is a person clearing their cookies or opening the site in a
 different browser. The website sees a new guest even though the human is the

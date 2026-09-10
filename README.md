@@ -5,6 +5,12 @@ the cloud using Genymotion's supported `gmsaas` CLI.
 
 ## Setup
 
+Install the optional Genymotion tooling:
+
+```bash
+uv sync --extra genymotion
+```
+
 Create an API token in Genymotion SaaS and export it without committing it:
 
 ```bash
@@ -52,6 +58,8 @@ uv sync
 Run the FastMCP server locally with the default `stdio` transport:
 
 ```bash
+cp .env.example .env
+# Fill in ANONYMOUS_KEY_SECRET, POSTHOG_PROJECT_TOKEN, and POSTHOG_HOST.
 uv run groceries-mcp
 ```
 
@@ -71,6 +79,22 @@ uv run fastmcp run src/groceriesdeals/mcp_server.py:mcp \
 
 The HTTP MCP endpoint is `http://localhost:8438/mcp`. The starter server
 exposes a single `greet` tool that accepts a `name` string.
+
+The installed project also provides an HTTP entry point intended for
+containers. Its bind address, port, and MCP path can be overridden with
+`MCP_HOST`, `MCP_PORT`, and `MCP_PATH`:
+
+```bash
+uv run groceries-mcp-http
+```
+
+### Production deployment
+
+The repository includes a production image, Docker Compose stack, Caddy HTTPS
+proxy, GHCR publishing workflow, and immutable release script. The MCP server
+has no database dependency; usage analytics are sent to PostHog.
+
+Follow the complete [AWS Lightsail deployment guide](docs/deployment/lightsail.md).
 
 ### MCP request audit logs
 
@@ -94,6 +118,34 @@ authenticated identity.
 
 Audit output is emitted to stderr both from the `groceries-mcp` entry point and
 when the server is launched through the FastMCP CLI.
+
+### PostHog usage tracking
+
+The server sends sanitized PostHog events through the Python server SDK. Normal
+MCP operations use `mcp message processed`; tool calls use the dedicated `mcp
+tool called` event so they are visible in Activity. Events include MCP operation
+names, safe component names, outcome, duration, client/protocol versions, and
+UUIDv7 activity session IDs. Tool calls also include `tool_name`, bounded
+`tool_parameters`, a UI-friendly `tool_parameters_json` string, and a canonical
+`tool_call` string combining the name and parameters for breakdowns. Keys that
+look like passwords, tokens, secrets, credentials, email addresses, phone
+numbers, or private keys are replaced with `[REDACTED]`. Results, complete
+headers, raw metadata, IP addresses, raw `openai/subject` values, and error
+messages are never included.
+
+The server reads `openai/subject` from request metadata or the ChatGPT
+`x-openai-subject` header as soon as it is available, HMACs it into a stable
+PostHog distinct ID, and rejects conflicting identities within one connection.
+`ANONYMOUS_KEY_SECRET` must remain unchanged across deployments or the same
+subject will derive a new ID. Events without either identity source use a
+connection-scoped anonymous identity; tool calls still require a subject.
+PostHog delivery is best-effort after startup and cannot interrupt MCP traffic.
+
+To analyze usage in PostHog, select `mcp tool called`, count events for total
+calls, count unique users for callers, and break down by `tool_name`. Break down
+by `tool_call` for exact tool-plus-parameter combinations, or inspect/query
+`tool_parameters` and `tool_parameters_json`. Filter `identity_status =
+stable_user` when anonymous pre-identity traffic should not count as a user.
 
 ### Add the server to Codex
 
@@ -149,21 +201,16 @@ codex mcp remove groceries-deals
 
 ## Local development
 
-Start Postgres, the MCP HTTP server, and the landing site together:
+Start the MCP HTTP server and landing site together:
 
 ```bash
 make up
 ```
 
-- Postgres via docker compose (host port `5438`)
 - MCP at `http://localhost:8438/mcp`
 - Landing at `http://localhost:3438`
 
-Stop MCP and the landing site with Ctrl+C. Stop Postgres with:
-
-```bash
-make down
-```
+Stop both processes with Ctrl+C.
 
 ## Landing site
 

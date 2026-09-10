@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# Start local dev services: Postgres, MCP HTTP, and the landing site.
+# Start the local MCP HTTP server and landing site.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 # Non-default ports so they don't clash with other local projects.
-# Same *438 suffix as Postgres (5438) for this repo.
 MCP_PORT="${MCP_PORT:-8438}"
 LANDING_PORT="${LANDING_PORT:-3438}"
 MCP_PID=""
@@ -30,9 +29,6 @@ cleanup() {
 
 trap cleanup EXIT INT TERM
 
-echo "==> Starting Postgres (docker compose)"
-docker compose up -d --wait
-
 echo "==> Starting MCP HTTP on http://localhost:${MCP_PORT}/mcp"
 uv run fastmcp run src/groceriesdeals/mcp_server.py:mcp \
   --transport http \
@@ -51,11 +47,9 @@ LANDING_PID=$!
 
 echo
 echo "Services running:"
-echo "  Postgres  docker compose (port ${POSTGRES_PORT:-5438})"
 echo "  MCP       http://localhost:${MCP_PORT}/mcp"
 echo "  Landing   http://localhost:${LANDING_PORT}"
 echo
 echo "Press Ctrl+C to stop MCP and the landing site."
-echo "Postgres keeps running; use 'make down' to stop it."
 
 wait

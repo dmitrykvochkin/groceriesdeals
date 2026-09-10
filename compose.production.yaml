@@ -1,0 +1,69 @@
+name: groceriesdeals-production
+
+x-app: &app
+  image: ${GROCERIES_IMAGE:-ghcr.io/dmitrykvochkin/groceriesdeals}:${IMAGE_TAG:-latest}
+  env_file:
+    - ${GROCERIES_ENV_FILE:-/etc/groceriesdeals/groceriesdeals.env}
+  networks:
+    - backend
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+
+services:
+  mcp:
+    <<: *app
+    restart: unless-stopped
+    expose:
+      - "8438"
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import socket; socket.create_connection(('127.0.0.1', 8438), 3).close()"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    stop_grace_period: 30s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  caddy:
+    image: caddy:2.11.4-alpine@sha256:5f5c8640aae01df9654968d946d8f1a56c497f1dd5c5cda4cf95ab7c14d58648
+    restart: unless-stopped
+    depends_on:
+      mcp:
+        condition: service_healthy
+    environment:
+      MCP_DOMAIN: ${MCP_DOMAIN:?Set MCP_DOMAIN in the production environment file}
+    networks:
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+networks:
+  backend:
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,4 +1,11 @@
 
+Install the optional Android UI-automation dependency before running the
+scraping scripts:
+
+```bash
+uv sync --extra scraping
+```
+
 navigate to correct screens:
 1. open app (& wait for load)
 2. click "zoeken" (bottom nav bar)

@@ -1,0 +1,11 @@
+*
+!.dockerignore
+!Dockerfile
+!README.md
+!pyproject.toml
+!uv.lock
+!src/
+!src/**
+!alembic/
+!alembic/**
+!alembic.ini

@@ -1,4 +1,4 @@
-# ADR 0002: Track anonymous MCP users via HMAC'd openai/subject
+# ADR 0002: Track anonymous MCP activity in PostHog
 
 - Status: Accepted
 - Date: 2026-07-24
@@ -6,33 +6,52 @@
 ## Context
 
 AI clients (ChatGPT) send an anonymized `openai/subject` on tool calls. We need
-a durable visitor identity in our DB before signup, without treating that value
-as authenticated identity.
+a stable analytics identity before signup without operating a database or
+treating that value as authenticated identity.
 
 ## Decision
 
-On each `tools/call`, require `openai/subject`. Derive
-`User.anonymous_key = HMAC-SHA256(ANONYMOUS_KEY_SECRET, "openai:" + subject)`
-and get-or-create a `User` row. Missing subject rejects the call. Other MCP
-methods (e.g. `initialize`) are unaffected. Tracking lives in dedicated
-middleware, separate from audit logging.
+Use the PostHog Python server SDK to capture one sanitized event for each MCP
+operation. Use `mcp tool called` for tool calls and `mcp message processed` for
+other operations. Resolve `openai/subject` from request metadata or the
+`x-openai-subject` HTTP header as soon as either is available, derive
+`HMAC-SHA256(ANONYMOUS_KEY_SECRET, "openai:" + subject)`, and use it as the
+stable PostHog distinct ID. Alias any earlier connection-anonymous events into
+that user. Reject tool calls without a subject and reject disagreeing or changed
+identity sources within a connection.
+
+Create UUIDv7 PostHog activity-session IDs locally. Reuse an ID until 30 minutes
+of inactivity or 24 hours of total activity, then rotate it. Keep all state on
+the in-memory FastMCP session. PostHog failures are logged and fail open.
+
+Capture tool names, bounded tool arguments, and a canonical combined tool-call
+property so usage can be analyzed by tool and input. Redact values whose keys
+indicate passwords, tokens, secrets, credentials, email addresses, phone
+numbers, credit cards, or private keys.
+Never capture results, complete headers, raw request metadata, IP addresses,
+raw subjects, or error messages.
 
 ## Consequences
 
 ### Positive
 
-- Repeat callers map to one `User` without signup.
-- Raw OpenAI subjects are not stored; a leaked DB does not expose them.
-- Identity is centralized for later usage limits.
+- Repeat callers merge into one PostHog person without signup.
+- The service can deploy without PostgreSQL or migrations.
+- Raw OpenAI subjects do not leave the process.
+- Total tool calls, unique callers, tool names, and argument combinations are
+  directly queryable in PostHog.
 
 ### Negative
 
 - Local/non-ChatGPT clients must supply `openai/subject` or tool calls fail.
-- Subject rotation or omission creates a new anonymous user.
+- Subject rotation or omission rejects tool calls.
 - Relies on a server secret that must stay stable and private.
+- Non-sensitive tool arguments may contain personal data, so tool schemas and
+  PostHog retention/access controls require review as tools are added.
+- PostHog is append-only analytics and cannot enforce transactional quotas.
 
 ## References
 
 - [`docs/blog/user-identity-without-signup.md`](../blog/user-identity-without-signup.md)
-- [`groceriesdeals.mcp_users`](../../src/groceriesdeals/mcp_users.py)
 - [`groceriesdeals.identity`](../../src/groceriesdeals/identity.py)
+- [`groceriesdeals.mcp_posthog`](../../src/groceriesdeals/mcp_posthog.py)
