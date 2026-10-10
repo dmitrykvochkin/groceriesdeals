@@ -10,8 +10,13 @@ from fastmcp.server.lifespan import lifespan
 from posthog import Posthog
 
 from groceriesdeals.config import get_settings
+from groceriesdeals.deals import get_current_discounts as lookup_current_discounts
 from groceriesdeals.mcp_audit import MCPAuditMiddleware
 from groceriesdeals.mcp_posthog import PostHogClient, PostHogTrackingMiddleware
+from groceriesdeals.supermarkets import (
+    list_supermarkets as catalog_supermarkets,
+    supported_supermarket_ids,
+)
 
 
 PostHogClientFactory = Callable[[], PostHogClient]
@@ -61,9 +66,23 @@ def create_mcp(
     server.add_middleware(PostHogTrackingMiddleware(secret))
 
     @server.tool
-    def greet(name: str) -> str:
-        """Return a friendly greeting."""
-        return f"Hello, {name}!"
+    def list_supermarkets() -> list[dict[str, str]]:
+        """List supermarket ids currently available for discount lookups."""
+        return catalog_supermarkets()
+
+    supported = ", ".join(supported_supermarket_ids())
+
+    @server.tool(description=(
+        "Return active discounts for a supermarket. "
+        f"Call list_supermarkets first. Supported supermarket_id values: {supported}. "
+        "Optional category filters Picnic results "
+        "(for example: fruit, bakkerij, vlees_vis)."
+    ))
+    def get_current_discounts(
+        supermarket_id: str,
+        category: str | None = None,
+    ) -> dict:
+        return lookup_current_discounts(supermarket_id, category=category)
 
     return server
 

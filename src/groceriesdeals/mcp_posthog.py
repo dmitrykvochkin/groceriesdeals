@@ -175,8 +175,8 @@ class PostHogTrackingMiddleware(Middleware):
             state.touch(timestamp)
             subject = _request_subject(context)
             if subject is None:
-                if context.method == "tools/call":
-                    raise ToolError("Anonymous subject required")
+                # v1 free MCP: subject is optional. When absent, keep the
+                # session-anonymous PostHog distinct id and still serve tools.
                 return state.distinct_id, state.posthog_session_id
 
             user_id = derive_anonymous_key(self._anonymous_key_secret, subject)

@@ -8,7 +8,9 @@
     (write blog post)
 
 
-[ ] create new MCP Tool (endpoint): get_current_discounts
+[x] create new MCP Tool (endpoint): get_current_discounts
+    - list_supermarkets (Picnic only for now)
+    - get_current_discounts(supermarket_id, category?)
 
 
 

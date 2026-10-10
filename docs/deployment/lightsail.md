@@ -11,11 +11,11 @@ Internet -> Caddy :443 -> MCP :8438 -> PostHog HTTPS API
 Only Caddy publishes host ports. The MCP service is reachable only on the
 private Compose network.
 
-> [!WARNING]
-> This deployment protects transport and infrastructure, but the application
-> does not yet authenticate callers. `openai/subject` is client-provided
-> metadata, not proof that a request came from ChatGPT. Add OAuth, mTLS, or a
-> trusted authentication gateway before advertising the endpoint publicly.
+> [!NOTE]
+> v1 is intentionally open: the deals tools do not authenticate callers.
+> HTTPS via Caddy protects transport. `openai/subject` is optional client
+> metadata used only for PostHog analytics when present. Add rate limits or
+> auth later if abuse becomes a problem.
 
 ## What the repository provides
 

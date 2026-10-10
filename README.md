@@ -77,8 +77,11 @@ uv run fastmcp run src/groceriesdeals/mcp_server.py:mcp \
   --port 8438
 ```
 
-The HTTP MCP endpoint is `http://localhost:8438/mcp`. The starter server
-exposes a single `greet` tool that accepts a `name` string.
+The HTTP MCP endpoint is `http://localhost:8438/mcp`. The v1 server exposes:
+
+- `list_supermarkets` — currently returns Picnic only
+- `get_current_discounts(supermarket_id, category?)` — active deals for a
+  supermarket (optional Picnic category filter such as `fruit`)
 
 The installed project also provides an HTTP entry point intended for
 containers. Its bind address, port, and MCP path can be overridden with
@@ -110,11 +113,11 @@ and error. Request records include:
 - authenticated OAuth client ID, scopes, expiry, resource, and token claims.
 
 Authorization headers, cookies, passwords, secrets, and token-shaped fields are
-redacted. The bearer token itself is never logged. A human user ID is available
-only when authentication supplies one in token claims (usually `sub`) or a
-trusted gateway explicitly supplies it. Client names, user agents, forwarded
-headers, and request `_meta` are client assertions and must not be treated as
-authenticated identity.
+redacted. The bearer token itself is never logged. v1 is intentionally
+unauthenticated so any MCP client can call the deals tools. When ChatGPT sends
+`openai/subject`, it is hashed for PostHog analytics only and is not treated as
+proof of identity. Client names, user agents, forwarded headers, and request
+`_meta` are client assertions.
 
 Audit output is emitted to stderr both from the `groceries-mcp` entry point and
 when the server is launched through the FastMCP CLI.
@@ -134,11 +137,11 @@ headers, raw metadata, IP addresses, raw `openai/subject` values, and error
 messages are never included.
 
 The server reads `openai/subject` from request metadata or the ChatGPT
-`x-openai-subject` header as soon as it is available, HMACs it into a stable
-PostHog distinct ID, and rejects conflicting identities within one connection.
+`x-openai-subject` header when present, HMACs it into a stable PostHog distinct
+ID, and rejects conflicting identities within one connection.
 `ANONYMOUS_KEY_SECRET` must remain unchanged across deployments or the same
 subject will derive a new ID. Events without either identity source use a
-connection-scoped anonymous identity; tool calls still require a subject.
+connection-scoped anonymous identity; tool calls work without a subject.
 PostHog delivery is best-effort after startup and cannot interrupt MCP traffic.
 
 To analyze usage in PostHog, select `mcp tool called`, count events for total
@@ -170,8 +173,8 @@ codex mcp list
 ```
 
 Restart Codex after adding the server. In a Codex conversation, use `/mcp` to
-check that `groceries-deals` is connected and that its `greet` tool is
-available.
+check that `groceries-deals` is connected and that `list_supermarkets` /
+`get_current_discounts` are available.
 
 The equivalent entry in `~/.codex/config.toml` is:
 
