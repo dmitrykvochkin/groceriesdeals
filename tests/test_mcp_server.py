@@ -25,7 +25,7 @@ from groceriesdeals.mcp_posthog import (
     TOOL_CALL_EVENT_NAME,
     PostHogTrackingMiddleware,
 )
-from groceriesdeals.mcp_server import create_mcp
+from groceriesdeals.mcp_server import SERVER_INSTRUCTIONS, create_mcp
 
 _SECRET = "test-anonymous-key-secret"
 _TEST_META = {"openai/subject": "v1/test-mcp-server-subject"}
@@ -88,6 +88,40 @@ def test_server(recording: RecordingPostHogClient):
 
 
 class MCPServerTests(unittest.TestCase):
+    def test_server_instructions_cover_grocery_lists_and_meal_plans(self) -> None:
+        self.assertIn("grocery/shopping list", SERVER_INSTRUCTIONS)
+        self.assertIn("meal plan", SERVER_INSTRUCTIONS)
+        self.assertIn("call get_current_discounts", SERVER_INSTRUCTIONS)
+        self.assertIn("omit category", SERVER_INSTRUCTIONS)
+
+    def test_tool_descriptions_explain_discovery_and_intended_use(self) -> None:
+        recording = RecordingPostHogClient()
+
+        async def list_tool_metadata() -> dict[str, Any]:
+            async with Client(test_server(recording)) as client:
+                tools = await client.list_tools()
+                return {tool.name: tool for tool in tools}
+
+        tools = asyncio.run(list_tool_metadata())
+        list_tool = tools["list_supermarkets"]
+        deals_tool = tools["get_current_discounts"]
+
+        self.assertIn("has not chosen a supermarket", list_tool.description)
+        self.assertIn("grocery/shopping list", deals_tool.description)
+        self.assertIn("meal plan", deals_tool.description)
+        self.assertIn("Omit category", deals_tool.description)
+        self.assertEqual(
+            deals_tool.inputSchema["properties"]["supermarket_id"]["description"],
+            (
+                "Exact supermarket id. Currently use 'picnic'. Get valid ids "
+                "from list_supermarkets when the store is not known."
+            ),
+        )
+        self.assertIn(
+            "Omit for grocery lists and meal plans",
+            deals_tool.inputSchema["properties"]["category"]["description"],
+        )
+
     def test_deals_tools(self) -> None:
         recording = RecordingPostHogClient()
 
