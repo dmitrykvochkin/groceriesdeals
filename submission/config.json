@@ -1,0 +1,59 @@
+{
+  "name": "kortingzoeker",
+  "version": "1.0.0",
+  "display_name": "kortingzoeker.com",
+  "description": "Find current Dutch supermarket deals and turn them into budget grocery lists and meal ideas in ChatGPT.",
+  "author": {
+    "name": "kortingzoeker.com",
+    "email": "support@kortingzoeker.com",
+    "url": "https://kortingzoeker.com"
+  },
+  "homepage": "https://kortingzoeker.com",
+  "repository": "https://github.com/dmitrykvochkin/groceriesdeals",
+  "license": "Proprietary",
+  "keywords": [
+    "groceries",
+    "deals",
+    "picnic",
+    "netherlands",
+    "meal-planning",
+    "shopping-list",
+    "korting"
+  ],
+  "website_url": "https://kortingzoeker.com",
+  "support_url": "https://kortingzoeker.com/support",
+  "privacy_policy_url": "https://kortingzoeker.com/privacy",
+  "terms_of_service_url": "https://kortingzoeker.com/terms",
+  "mcp_url": "https://mcp.kortingzoeker.com/mcp",
+  "mcp_server_name": "kortingzoeker",
+  "category": "Shopping",
+  "capabilities": [
+    "List supported supermarkets",
+    "Fetch current supermarket deals",
+    "Build deal-aware grocery lists",
+    "Suggest budget meal ideas from deals"
+  ],
+  "default_prompts": [
+    "Maak een gezonde boodschappenlijst voor 3 avondmaaltijden onder €40 met actuele Picnic-aanbiedingen.",
+    "Welke fruitaanbiedingen heeft Picnic momenteel?",
+    "Welke supermarkten ondersteunt kortingzoeker.com?"
+  ],
+  "brand_color": "#7157E7",
+  "brand_color_dark": "#DED8FF",
+  "developer_name": "kortingzoeker.com",
+  "short_description": "Dutch supermarket deals for smarter grocery lists",
+  "long_description": "kortingzoeker.com helps ChatGPT answer grocery and meal-planning questions using current Picnic promotions in the Netherlands. Ask for a budget list, discounted ingredients, or meal ideas grounded in available deals. The app does not place supermarket orders or process payments; always verify final prices in your retailer basket.",
+  "countries": ["NL"],
+  "release_notes": "Initial public release: Picnic deal lookup via list_supermarkets and get_current_discounts. No checkout, no payments, and no account required.",
+  "demo_recording_url": "https://kortingzoeker.com/review/demo",
+  "commerce": false,
+  "commerce_description": "This plugin does not sell products or process payments. Users complete any grocery purchase directly with the supermarket.",
+  "translations": {
+    "nl-NL": {
+      "subtitle": "Nederlandse supermarktdeals voor slimme boodschappenlijsten",
+      "description": "kortingzoeker.com helpt ChatGPT om boodschappen- en maaltijdvragen te beantwoorden met actuele Picnic-aanbiedingen in Nederland. Vraag om een budgetlijst, afgeprijsde ingrediënten of maaltijdideeën op basis van beschikbare deals. De app plaatst geen bestellingen en verwerkt geen betalingen; controleer eindprijzen altijd in je winkelmandje."
+    }
+  },
+  "logo_source": "apps/landing/app/icon.png",
+  "composer_icon_source": "apps/landing/app/icon.png"
+}

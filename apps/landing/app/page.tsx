@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Brand } from "./components/Brand";
+import { LanguageSwitch, type Language } from "./components/LanguageSwitch";
+import { SiteFooter } from "./components/SiteFooter";
 import { PRODUCT_NAME } from "./constants";
-
-type Language = "nl" | "en";
 
 const copy = {
   nl: {
@@ -68,9 +69,6 @@ const copy = {
         a: "Nog niet. De app helpt je om relevante deals te vinden en slimme keuzes te maken. Bestellen doe je daarna zelf bij de supermarkt.",
       },
     ],
-    footerLine: "Actuele supermarktdeals, gewoon in je chat.",
-    disclaimer:
-      "Onafhankelijke ChatGPT-app. Niet gelieerd aan Picnic, Albert Heijn of Jumbo.",
   },
   en: {
     navHow: "How it works",
@@ -133,9 +131,6 @@ const copy = {
         a: "Not yet. The app helps you discover relevant deals and make smarter choices. You complete the order with the supermarket yourself.",
       },
     ],
-    footerLine: "Current supermarket deals, right in your chat.",
-    disclaimer:
-      "Independent ChatGPT app. Not affiliated with Picnic, Albert Heijn, or Jumbo.",
   },
 } as const;
 
@@ -144,20 +139,6 @@ const products = [
   { emoji: "🥣", nl: "Havermout", en: "Oats", price: "€1,49", deal: "−25%" },
   { emoji: "🫐", nl: "Blauwe bessen", en: "Blueberries", price: "€2,29", deal: "−20%" },
 ] as const;
-
-const PRODUCT_NAME_SUFFIX = ".ai";
-const PRODUCT_NAME_ROOT = PRODUCT_NAME.slice(0, -PRODUCT_NAME_SUFFIX.length);
-
-function Brand() {
-  return (
-    <a className="brand" href="#top" aria-label={`${PRODUCT_NAME} home`}>
-      <span className="brandMark" aria-hidden="true">
-        <span />
-      </span>
-      <span>{PRODUCT_NAME_ROOT}<span>{PRODUCT_NAME_SUFFIX}</span></span>
-    </a>
-  );
-}
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>("nl");
@@ -171,7 +152,7 @@ export default function Home() {
     <main id="top">
       <header className="siteHeader">
         <div className="container navInner">
-          <Brand />
+          <Brand href="#top" />
 
           <nav className="desktopNav" aria-label={language === "nl" ? "Hoofdnavigatie" : "Main navigation"}>
             <a href="#how">{t.navHow}</a>
@@ -183,24 +164,7 @@ export default function Home() {
               <span aria-hidden="true" />
               {t.availability}
             </div>
-            <div className="languageSwitch" aria-label={language === "nl" ? "Kies taal" : "Choose language"}>
-              <button
-                className={language === "nl" ? "active" : ""}
-                type="button"
-                aria-pressed={language === "nl"}
-                onClick={() => setLanguage("nl")}
-              >
-                NL
-              </button>
-              <button
-                className={language === "en" ? "active" : ""}
-                type="button"
-                aria-pressed={language === "en"}
-                onClick={() => setLanguage("en")}
-              >
-                EN
-              </button>
-            </div>
+            <LanguageSwitch language={language} onChange={setLanguage} />
           </div>
         </div>
       </header>
@@ -384,17 +348,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer>
-        <div className="container footerTop">
-          <Brand />
-          <p>{t.footerLine}</p>
-          <a href="#top">{language === "nl" ? "Naar boven" : "Back to top"}<span aria-hidden="true">↑</span></a>
-        </div>
-        <div className="container footerBottom">
-          <span>© {new Date().getFullYear()} {PRODUCT_NAME}</span>
-          <span>{t.disclaimer}</span>
-        </div>
-      </footer>
+      <SiteFooter language={language} homeHref="#top" />
     </main>
   );
 }

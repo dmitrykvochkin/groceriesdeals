@@ -4,9 +4,9 @@ import type { ReactNode } from "react";
 import { PRODUCT_NAME } from "./constants";
 import "./globals.css";
 
-const title = `${PRODUCT_NAME} — bespaar tot 30% op online boodschappen`;
+const title = `${PRODUCT_NAME} — slimme boodschappenlijsten met actuele deals`;
 const description =
-  "Laat ChatGPT een slimme boodschappenlijst maken met actuele Picnic-deals en bespaar tot 30% op je online boodschappen.";
+  "Laat ChatGPT een slimme boodschappenlijst of maaltijdplan maken met actuele Picnic-deals via kortingzoeker.com.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
