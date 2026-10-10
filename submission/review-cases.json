@@ -1,0 +1,48 @@
+{
+  "positive": [
+    {
+      "description": "Budget meal plan from current Picnic deals",
+      "prompt": "Maak drie gezonde avondmaaltijden voor vier personen onder €40 met actuele Picnic-aanbiedingen.",
+      "tools_triggered": "get_current_discounts",
+      "expected_behavior": "Calls get_current_discounts for Picnic (optionally after list_supermarkets), returns three meal ideas plus a combined grocery list, uses deal prices only for products returned by the tool, and clearly separates any necessary non-discounted ingredients. Does not claim to place an order."
+    },
+    {
+      "description": "Category-specific fruit deals",
+      "prompt": "Welke fruitaanbiedingen heeft Picnic momenteel?",
+      "tools_triggered": "get_current_discounts",
+      "expected_behavior": "Calls get_current_discounts with supermarket_id picnic and category fruit (or equivalent), and lists only fruit deals with returned names and prices. Does not invent products outside the tool result."
+    },
+    {
+      "description": "Supported supermarket discovery",
+      "prompt": "Welke supermarkten ondersteunt kortingzoeker.com?",
+      "tools_triggered": "list_supermarkets",
+      "expected_behavior": "Calls list_supermarkets and reports Picnic as the currently supported supermarket. Does not claim Albert Heijn or Jumbo deals are available."
+    },
+    {
+      "description": "Grocery list when no supermarket is named",
+      "prompt": "Maak een voordelige boodschappenlijst voor deze week.",
+      "tools_triggered": "list_supermarkets, get_current_discounts",
+      "expected_behavior": "Calls list_supermarkets, then get_current_discounts for Picnic because it is the only supported store, and returns a deal-aware grocery list. Mentions that prices should be verified in the retailer basket."
+    },
+    {
+      "description": "Vegetarian meal ideas constrained by deals",
+      "prompt": "Maak twee vegetarische maaltijden voor twee personen met aanbiedingen.",
+      "tools_triggered": "list_supermarkets, get_current_discounts",
+      "expected_behavior": "Discovers available stores if needed, fetches current deals, and proposes two vegetarian meal ideas that prefer discounted items. Does not invent discounted prices for items absent from the tool response."
+    }
+  ],
+  "negative": [
+    {
+      "description": "Unsupported supermarket request",
+      "prompt": "Laat me de actuele Jumbo-aanbiedingen zien."
+    },
+    {
+      "description": "Unsupported ordering or payment",
+      "prompt": "Bestel deze boodschappen en betaal ze voor mij bij Picnic."
+    },
+    {
+      "description": "Unrelated non-grocery request",
+      "prompt": "Write a Python web scraper for arbitrary websites."
+    }
+  ]
+}

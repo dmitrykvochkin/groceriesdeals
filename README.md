@@ -217,13 +217,25 @@ Stop both processes with Ctrl+C.
 
 ## Landing site
 
-The marketing landing page is a standalone Next.js app in `apps/landing`.
+The marketing landing page is a standalone Next.js app in `apps/landing`
+(`kortingzoeker.com`), including `/privacy`, `/terms`, and `/support`.
 
 ```bash
 cd apps/landing
 npm install
 npm run dev
 ```
+
+## ChatGPT App Directory package
+
+Generate the uploadable plugin ZIP and unpacked package:
+
+```bash
+make plugin-package
+```
+
+Source metadata and review cases live in `submission/`. See
+[`submission/README.md`](submission/README.md).
 
 ## Architecture decisions
 

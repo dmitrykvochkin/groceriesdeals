@@ -13,3 +13,6 @@ yarn-debug.log*
 yarn-error.log*
 apps/landing/.env*
 .DS_Store
+
+# Generated App Directory package
+dist/
