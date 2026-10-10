@@ -88,30 +88,37 @@ def test_server(recording: RecordingPostHogClient):
 
 
 class MCPServerTests(unittest.TestCase):
-    def test_greet_tool(self) -> None:
+    def test_deals_tools(self) -> None:
         recording = RecordingPostHogClient()
 
-        async def call_greet() -> str:
+        async def call_tools() -> tuple[list[dict[str, str]], dict[str, object]]:
             async with Client(test_server(recording)) as client:
-                result = await client.call_tool(
-                    "greet", {"name": "World"}, meta=_TEST_META
+                listed = await client.call_tool("list_supermarkets", {}, meta=_TEST_META)
+                discounts = await client.call_tool(
+                    "get_current_discounts",
+                    {"supermarket_id": "picnic", "category": "fruit"},
+                    meta=_TEST_META,
                 )
-                return result.data
+                return listed.data, discounts.data
 
         with self.assertLogs(logger, level=logging.INFO):
-            result = asyncio.run(call_greet())
-        self.assertEqual(result, "Hello, World!")
+            supermarkets, discounts = asyncio.run(call_tools())
+        self.assertEqual(supermarkets, [{"id": "picnic", "name": "Picnic"}])
+        self.assertTrue(discounts["available"])
+        self.assertEqual(discounts["deal_count"], 6)
         self.assertEqual(recording.shutdown_count, 1)
 
     def test_audit_log_captures_client_request_session_and_response(self) -> None:
         recording = RecordingPostHogClient()
 
-        async def call_greet() -> None:
+        async def call_tool() -> None:
             async with Client(test_server(recording)) as client:
-                await client.call_tool("greet", {"name": "World"}, meta=_TEST_META)
+                await client.call_tool(
+                    "list_supermarkets", {}, meta=_TEST_META
+                )
 
         with self.assertLogs(logger, level=logging.INFO) as captured:
-            asyncio.run(call_greet())
+            asyncio.run(call_tool())
 
         records = [json.loads(line.split(":", 2)[2]) for line in captured.output]
         initialize = next(
@@ -134,7 +141,7 @@ class MCPServerTests(unittest.TestCase):
         )
 
         self.assertEqual(initialize["client"]["implementation"]["name"], "mcp")
-        self.assertEqual(tool_call["mcp"]["message"]["name"], "greet")
+        self.assertEqual(tool_call["mcp"]["message"]["name"], "list_supermarkets")
         self.assertIsNotNone(tool_call["mcp"]["session_id"])
         self.assertEqual(tool_response["session_id"], tool_call["mcp"]["session_id"])
 
@@ -165,8 +172,8 @@ class MCPServerTests(unittest.TestCase):
                 await client.list_prompts()
                 await client.get_prompt("welcome", {"name": "Private Name"})
                 await client.call_tool(
-                    "greet",
-                    {"name": "Sensitive Tool Value"},
+                    "get_current_discounts",
+                    {"supermarket_id": "picnic"},
                     meta={"openai/subject": subject},
                 )
 
@@ -198,7 +205,8 @@ class MCPServerTests(unittest.TestCase):
         )
         serialized = json.dumps(recording.events, default=str)
         self.assertNotIn(subject, serialized)
-        self.assertIn("Sensitive Tool Value", serialized)
+        self.assertIn("picnic", serialized)
+        self.assertIn("get_current_discounts", serialized)
         self.assertNotIn("Private Name", serialized)
         self.assertNotIn("resource payload", serialized)
 
@@ -278,7 +286,10 @@ class MCPServerTests(unittest.TestCase):
     def test_subject_header_and_metadata_must_agree(self) -> None:
         recording = RecordingPostHogClient()
         context = MiddlewareContext(
-            message=SimpleNamespace(name="greet", arguments={}),
+            message=SimpleNamespace(
+                name="get_current_discounts",
+                arguments={"supermarket_id": "picnic"},
+            ),
             source="client",
             type="request",
             method="tools/call",
@@ -316,9 +327,9 @@ class MCPServerTests(unittest.TestCase):
         recording = RecordingPostHogClient()
         context = MiddlewareContext(
             message=SimpleNamespace(
-                name="greet",
+                name="get_current_discounts",
                 arguments={
-                    "name": "Dmitry",
+                    "supermarket_id": "picnic",
                     "api_token": "never-send-this",
                     "accessToken": "camel-case-secret",
                     "nested": {"password": "also-secret", "count": 3},
@@ -350,15 +361,15 @@ class MCPServerTests(unittest.TestCase):
         arguments = recording.events[0]["properties"]["tool_parameters"]
         parameters_json = recording.events[0]["properties"]["tool_parameters_json"]
         tool_call = recording.events[0]["properties"]["tool_call"]
-        self.assertEqual(arguments["name"], "Dmitry")
+        self.assertEqual(arguments["supermarket_id"], "picnic")
         self.assertEqual(arguments["api_token"], "[REDACTED]")
         self.assertEqual(arguments["accessToken"], "[REDACTED]")
         self.assertEqual(arguments["nested"]["password"], "[REDACTED]")
         self.assertEqual(arguments["nested"]["count"], 3)
         self.assertLess(len(arguments["long"]), 1000)
-        self.assertIn('"tool":"greet"', tool_call)
-        self.assertIn('"name":"Dmitry"', tool_call)
-        self.assertIn('"name":"Dmitry"', parameters_json)
+        self.assertIn('"tool":"get_current_discounts"', tool_call)
+        self.assertIn('"supermarket_id":"picnic"', tool_call)
+        self.assertIn('"supermarket_id":"picnic"', parameters_json)
         self.assertNotIn("never-send-this", json.dumps(recording.events, default=str))
         self.assertNotIn("camel-case-secret", json.dumps(recording.events, default=str))
 
@@ -371,10 +382,14 @@ class MCPServerTests(unittest.TestCase):
             async with Client(test_server(recording)) as client:
                 await client.list_tools()
                 await client.call_tool(
-                    "greet", {"name": "One"}, meta={"openai/subject": subject}
+                    "list_supermarkets",
+                    {},
+                    meta={"openai/subject": subject},
                 )
                 await client.call_tool(
-                    "greet", {"name": "Two"}, meta={"openai/subject": subject}
+                    "get_current_discounts",
+                    {"supermarket_id": "picnic"},
+                    meta={"openai/subject": subject},
                 )
 
         with self.assertLogs(logger, level=logging.INFO):
@@ -403,15 +418,17 @@ class MCPServerTests(unittest.TestCase):
         subject = "v1/repeat-user"
         expected_user = derive_anonymous_key(_SECRET, subject)
 
-        async def call_once(name: str) -> None:
+        async def call_once(supermarket_id: str) -> None:
             async with Client(test_server(recording)) as client:
                 await client.call_tool(
-                    "greet", {"name": name}, meta={"openai/subject": subject}
+                    "get_current_discounts",
+                    {"supermarket_id": supermarket_id},
+                    meta={"openai/subject": subject},
                 )
 
         with self.assertLogs(logger, level=logging.INFO):
-            asyncio.run(call_once("First"))
-            asyncio.run(call_once("Second"))
+            asyncio.run(call_once("picnic"))
+            asyncio.run(call_once("picnic"))
 
         tool_events = [
             event
@@ -425,33 +442,34 @@ class MCPServerTests(unittest.TestCase):
         )
         self.assertEqual(
             [event["properties"]["tool_name"] for event in tool_events],
-            ["greet", "greet"],
+            ["get_current_discounts", "get_current_discounts"],
         )
         self.assertEqual(
             [
-                event["properties"]["tool_parameters"]["name"]
+                event["properties"]["tool_parameters"]["supermarket_id"]
                 for event in tool_events
             ],
-            ["First", "Second"],
+            ["picnic", "picnic"],
         )
 
-    def test_tools_call_rejects_missing_subject_and_tracks_failure(self) -> None:
+    def test_tools_call_allows_missing_subject(self) -> None:
         recording = RecordingPostHogClient()
 
-        async def call_greet() -> None:
+        async def call_tool() -> dict[str, object]:
             async with Client(test_server(recording)) as client:
-                await client.call_tool("greet", {"name": "World"})
+                result = await client.call_tool("list_supermarkets", {})
+                return result.data
 
-        with self.assertRaises(ToolError) as ctx:
-            asyncio.run(call_greet())
-        self.assertIn("Anonymous subject required", str(ctx.exception))
-        failed = next(
+        result = asyncio.run(call_tool())
+        self.assertEqual(result, [{"id": "picnic", "name": "Picnic"}])
+        tool_events = [
             event
             for event in recording.events
-            if event["properties"].get("error_type") == "ToolError"
-        )
-        self.assertEqual(failed["properties"]["outcome"], "error")
-        self.assertTrue(failed["distinct_id"].startswith("mcp-anonymous:"))
+            if event["properties"].get("mcp_method") == "tools/call"
+        ]
+        self.assertEqual(len(tool_events), 1)
+        self.assertEqual(tool_events[0]["properties"]["outcome"], "success")
+        self.assertTrue(tool_events[0]["distinct_id"].startswith("mcp-anonymous:"))
 
     def test_tools_call_rejects_subject_change(self) -> None:
         recording = RecordingPostHogClient()
@@ -459,10 +477,14 @@ class MCPServerTests(unittest.TestCase):
         async def exercise() -> None:
             async with Client(test_server(recording)) as client:
                 await client.call_tool(
-                    "greet", {"name": "One"}, meta={"openai/subject": "v1/user-a"}
+                    "list_supermarkets",
+                    {},
+                    meta={"openai/subject": "v1/user-a"},
                 )
                 await client.call_tool(
-                    "greet", {"name": "Two"}, meta={"openai/subject": "v1/user-b"}
+                    "list_supermarkets",
+                    {},
+                    meta={"openai/subject": "v1/user-b"},
                 )
 
         with self.assertRaises(ToolError) as ctx:
@@ -495,16 +517,16 @@ class MCPServerTests(unittest.TestCase):
     def test_posthog_failures_do_not_break_tool_calls(self) -> None:
         recording = RecordingPostHogClient(fail_capture=True, fail_alias=True)
 
-        async def call_greet() -> str:
+        async def call_tool() -> list[dict[str, str]]:
             async with Client(test_server(recording)) as client:
                 result = await client.call_tool(
-                    "greet", {"name": "World"}, meta=_TEST_META
+                    "list_supermarkets", {}, meta=_TEST_META
                 )
                 return result.data
 
-        result = asyncio.run(call_greet())
+        result = asyncio.run(call_tool())
 
-        self.assertEqual(result, "Hello, World!")
+        self.assertEqual(result, [{"id": "picnic", "name": "Picnic"}])
         self.assertEqual(recording.shutdown_count, 1)
 
 
