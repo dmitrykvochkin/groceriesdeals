@@ -99,6 +99,12 @@ has no database dependency; usage analytics are sent to PostHog.
 
 Follow the complete [AWS Lightsail deployment guide](docs/deployment/lightsail.md).
 
+Connect to the Lightsail instance over SSH:
+
+```bash
+ssh -i ~/.ssh/LightsailDefaultKey.pem ubuntu@13.135.248.192
+```
+
 ### MCP request audit logs
 
 The server writes one-line JSON audit records for every MCP request, response,
