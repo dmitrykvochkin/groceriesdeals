@@ -2,6 +2,7 @@
 
 import argparse
 import asyncio
+import json
 import sys
 from urllib.parse import urlsplit
 
@@ -12,17 +13,53 @@ async def check(url: str, timeout: float) -> None:
     async with Client(url, timeout=timeout, init_timeout=timeout) as client:
         print("PASS: connected and initialized MCP", flush=True)
         tools = await client.list_tools()
-        if not any(tool.name == "greet" for tool in tools):
-            raise RuntimeError("tool discovery did not return 'greet'")
-        print("PASS: discovered greet tool", flush=True)
+        print(f"Total tools: {len(tools)}", flush=True)
+        for tool in sorted(tools, key=lambda tool: tool.name):
+            print(f"  - {tool.name}", flush=True)
+            print("Input schema:", flush=True)
+            print(json.dumps(tool.inputSchema, indent=2, ensure_ascii=False), flush=True)
+            print("Output schema:", flush=True)
+            if tool.outputSchema is None:
+                print("  Not provided", flush=True)
+            else:
+                print(json.dumps(tool.outputSchema, indent=2, ensure_ascii=False), flush=True)
+        if not any(tool.name == "list_supermarkets" for tool in tools):
+            raise RuntimeError("tool discovery did not return 'list_supermarkets'")
         result = await client.call_tool(
-            "greet",
-            {"name": "deployment-smoke-check"},
+            "list_supermarkets",
+            {},
             meta={"openai/subject": "v1/deployment-smoke-check"},
         )
-        if result.data != "Hello, deployment-smoke-check!":
-            raise RuntimeError("greet returned an unexpected response")
-        print("PASS: greet returned the expected response", flush=True)
+        supermarkets = result.data
+        print("list_supermarkets result:", flush=True)
+        print(json.dumps(supermarkets, indent=2, ensure_ascii=False), flush=True)
+        if not isinstance(supermarkets, list) or not all(
+            isinstance(store, dict)
+            and isinstance(store.get("id"), str)
+            and isinstance(store.get("name"), str)
+            for store in supermarkets
+        ):
+            raise RuntimeError("list_supermarkets returned an unexpected response")
+        print(f"PASS: list_supermarkets returned {len(supermarkets)} supermarket(s)", flush=True)
+        if not any(tool.name == "get_current_discounts" for tool in tools):
+            raise RuntimeError("tool discovery did not return 'get_current_discounts'")
+        for store in supermarkets:
+            arguments = {"supermarket_id": store["id"]}
+            print(f"Calling get_current_discounts: {json.dumps(arguments)}", flush=True)
+            result = await client.call_tool(
+                "get_current_discounts",
+                arguments,
+                meta={"openai/subject": "v1/deployment-smoke-check"},
+            )
+            if not isinstance(result.data, dict):
+                raise RuntimeError(
+                    f"get_current_discounts returned an unexpected response for {store['id']}"
+                )
+            print("get_current_discounts result lengths:", flush=True)
+            for key, value in result.data.items():
+                length = len(value) if isinstance(value, (str, list, dict)) else "n/a"
+                print(f"  {key}: {length}", flush=True)
+            print(f"PASS: get_current_discounts completed for {store['id']}", flush=True)
 
 
 def main() -> int:

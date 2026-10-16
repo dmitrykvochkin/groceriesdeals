@@ -172,8 +172,15 @@ reachability, not a working MCP deployment. From your local repository checkout
 uv run scripts/check-live-deployment.py https://mcp.kortingzoeker.com/mcp
 ```
 
-The script verifies TLS for HTTPS URLs, initializes MCP, discovers the `greet`
-tool, and checks its response. It exits with status 0 on success or nonzero on
+The script verifies TLS for HTTPS URLs, initializes MCP, prints the tool count
+and names with each tool's input/output schemas, calls `list_supermarkets`, and
+prints and validates its JSON result. Missing output schemas are marked as not
+provided.
+It then calls `get_current_discounts` for each returned supermarket ID, omitting
+the optional category to fetch all categories, and prints each response key's
+value length (list items, dictionary entries, or string characters; `n/a` for
+scalar values), without dumping the full discounts result.
+It exits with status 0 on success or nonzero on
 failure, with a 30-second overall timeout (override with `--timeout 60`). Use
 your own domain if different. No production environment file is needed locally.
 
