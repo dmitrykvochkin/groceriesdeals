@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Brand } from "./components/Brand";
+import { BrandMark } from "./components/BrandMark";
 import { LanguageSwitch, type Language } from "./components/LanguageSwitch";
 import { SiteFooter } from "./components/SiteFooter";
 import { PRODUCT_NAME } from "./constants";
@@ -258,7 +259,7 @@ export default function Home() {
                 <span className="composerPlaceholder">{t.composerPlaceholder}</span>
                 <div className="composerToolbar">
                   <span className="composerAdd">+</span>
-                  <span className="composerTool"><span className="miniBrand"><span /></span>{PRODUCT_NAME}</span>
+                  <span className="composerTool"><BrandMark className="miniBrand" />{PRODUCT_NAME}</span>
                   <span className="composerMic" />
                   <b>↑</b>
                 </div>
