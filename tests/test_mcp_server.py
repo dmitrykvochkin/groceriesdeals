@@ -93,6 +93,9 @@ class MCPServerTests(unittest.TestCase):
         self.assertIn("meal plan", SERVER_INSTRUCTIONS)
         self.assertIn("call get_current_discounts", SERVER_INSTRUCTIONS)
         self.assertIn("omit category", SERVER_INSTRUCTIONS)
+        self.assertIn("cannot place orders", SERVER_INSTRUCTIONS)
+        self.assertIn("process payments", SERVER_INSTRUCTIONS)
+        self.assertIn("Never claim an order or payment was", SERVER_INSTRUCTIONS)
 
     def test_tool_descriptions_explain_discovery_and_intended_use(self) -> None:
         recording = RecordingPostHogClient()
