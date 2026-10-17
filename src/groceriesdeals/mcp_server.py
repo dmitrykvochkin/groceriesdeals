@@ -40,6 +40,9 @@ Use these tools whenever current supermarket deals could improve the answer.
   one product category.
 - Treat returned deals as inputs for recommendations. You may add necessary
   non-discounted ingredients, and must not claim those extra items are on sale.
+- These tools only provide deal information. They cannot place orders, modify
+  retailer baskets, or process payments. Never claim an order or payment was
+  completed; direct users to the retailer to complete purchases.
 - Never invent prices, discounts, supermarkets, categories, or availability.
   Use the values returned by these tools.
 """.strip()
