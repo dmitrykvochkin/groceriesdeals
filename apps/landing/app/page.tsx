@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { DemoVideo } from "./components/DemoVideo";
 import { useEffect, useState } from "react";
 import { Brand } from "./components/Brand";
 import { BrandMark } from "./components/BrandMark";
@@ -46,10 +47,9 @@ const copy = {
         body: "Je krijgt een voordelige boodschappenlijst direct in ChatGPT.",
       },
     ],
-    demoBadge: "25 sec. demo",
-    demoQuestion: "Wat kan ik voordelig koken vanavond?",
-    demoAnswer: "3 ideeën met deals gevonden",
-    demoCaption: "Jouw product-GIF of video komt hier",
+    demoBadge: "1 min. 35 sec. demo",
+    demoCaption: "Zonder geluid · Engelse ondertiteling",
+    demoLink: "Bekijk de volledige demo",
     faqEyebrow: "Goed om te weten",
     faqTitle: "Veelgestelde vragen",
     faqs: [
@@ -108,10 +108,9 @@ const copy = {
         body: "You get a money-saving grocery list directly in ChatGPT.",
       },
     ],
-    demoBadge: "25 sec. demo",
-    demoQuestion: "What can I cook for less tonight?",
-    demoAnswer: "3 ideas with deals found",
-    demoCaption: "Your product GIF or video goes here",
+    demoBadge: "1 min. 35 sec. demo",
+    demoCaption: "Silent · English captions",
+    demoLink: "Watch the full demo",
     faqEyebrow: "Good to know",
     faqTitle: "Frequently asked questions",
     faqs: [
@@ -303,22 +302,11 @@ export default function Home() {
             </div>
 
             <div className="demoFrame">
-              {/* Replace demoCanvas with a video or GIF when the final asset is ready. */}
-              <div className="demoCanvas">
-                <div className="demoGlow" aria-hidden="true" />
-                <div className="demoBrowser">
-                  <div className="demoBrowserBar"><i /><i /><i /></div>
-                  <div className="demoConversation">
-                    <div className="demoPrompt">{t.demoQuestion}</div>
-                    <div className="demoReply"><span>✦</span>{t.demoAnswer}</div>
-                    <div className="demoLines"><i /><i /><i /></div>
-                  </div>
-                </div>
-                <div className="playButton" aria-hidden="true">▶</div>
-              </div>
+              <DemoVideo />
               <div className="demoFooter">
                 <span className="demoBadge"><i />{t.demoBadge}</span>
                 <span>{t.demoCaption}</span>
+                <a href="/review/demo">{t.demoLink} ↗</a>
               </div>
             </div>
           </div>

@@ -1,0 +1,64 @@
+1
+00:00:00,000 --> 00:00:07,000
+Plan three healthy dinners for four people
+with a €40 target, using Picnic deals where possible.
+
+2
+00:00:07,000 --> 00:00:15,000
+Picnic is named in the request, so ChatGPT
+looks up its current deals through KortingZoeker.
+
+3
+00:00:15,000 --> 00:00:23,000
+The app uses get_current_discounts for Picnic.
+No category filter keeps all deal categories available.
+
+4
+00:00:23,000 --> 00:00:32,000
+ChatGPT uses the available deals
+to build a meal plan around the budget.
+
+5
+00:00:32,000 --> 00:00:40,000
+The plan brings together meal ideas,
+shared ingredients and a combined grocery list.
+
+6
+00:00:40,000 --> 00:00:48,000
+The estimated total is €37.63 —
+within the €40 target for three dinners for four.
+
+7
+00:00:48,000 --> 00:00:55,000
+Dinner ideas include salmon with potatoes and spinach,
+and courgette bolognese pasta.
+
+8
+00:00:55,000 --> 00:01:02,000
+A pumpkin, chickpea and minced-meat chili completes the plan.
+Shared ingredients help make the budget go further.
+
+9
+00:01:02,000 --> 00:01:08,000
+One combined shopping list separates
+€27.53 in deal-backed prices from other groceries.
+
+10
+00:01:08,000 --> 00:01:14,000
+Other groceries add an estimated €10.10.
+Final prices and availability may vary.
+
+11
+00:01:14,000 --> 00:01:23,000
+What happens if you ask the app
+to order the groceries and pay at Picnic?
+
+12
+00:01:23,000 --> 00:01:30,000
+KortingZoeker provides deals for planning.
+It cannot place orders or process payments.
+
+13
+00:01:30,000 --> 00:01:35,325
+Complete checkout at the retailer.
+Purchases remain under your control.

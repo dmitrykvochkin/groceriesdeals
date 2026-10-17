@@ -113,13 +113,13 @@ summary:focus-visible {
 
 .desktopNav a,
 .buttonText,
-.footerTop > a {
+.footerTop > a:not(.brand) {
   position: relative;
 }
 
 .desktopNav a::after,
 .buttonText::after,
-.footerTop > a::after {
+.footerTop > a:not(.brand)::after {
   content: "";
   position: absolute;
   right: 0;
@@ -134,7 +134,7 @@ summary:focus-visible {
 
 .desktopNav a:hover::after,
 .buttonText:hover::after,
-.footerTop > a:hover::after {
+.footerTop > a:not(.brand):hover::after {
   transform: scaleX(1);
   transform-origin: left;
 }
@@ -1009,6 +1009,23 @@ h2 {
   box-shadow: 14px 14px 0 rgba(185, 236, 100, 0.13);
 }
 
+.demoVideo {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #000;
+}
+
+.demoFooter {
+  flex-wrap: wrap;
+}
+
+.demoFooter a {
+  color: white;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .demoCanvas {
   position: relative;
   display: grid;
@@ -1303,7 +1320,7 @@ footer {
   font-weight: 700;
 }
 
-.footerTop > a {
+.footerTop > a:not(.brand) {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1311,7 +1328,7 @@ footer {
   font-weight: 800;
 }
 
-.footerTop > a span {
+.footerTop > a:not(.brand) span {
   display: grid;
   place-items: center;
   width: 26px;
