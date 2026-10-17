@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { PRODUCT_NAME, PRODUCT_NAME_ROOT, PRODUCT_NAME_SUFFIX } from "../constants";
+import { BrandMark } from "./BrandMark";
 
 export function Brand({ href = "/" }: { href?: string }) {
   const content = (
     <>
-      <span className="brandMark" aria-hidden="true">
-        <span />
-      </span>
+      <BrandMark />
       <span>
         {PRODUCT_NAME_ROOT}
         <span>{PRODUCT_NAME_SUFFIX}</span>

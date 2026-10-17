@@ -96,45 +96,12 @@ summary:focus-visible {
 
 .brandMark,
 .miniBrand {
-  position: relative;
-  display: grid;
+  display: block;
   flex: 0 0 auto;
-  place-items: center;
   width: 34px;
   height: 34px;
-  overflow: hidden;
-  border-radius: 10px 10px 10px 3px;
-  background: var(--purple);
+  color: var(--purple);
   transform: rotate(-4deg);
-}
-
-.brandMark::before,
-.brandMark::after,
-.miniBrand::before,
-.miniBrand::after,
-.brandMark span,
-.miniBrand span {
-  content: "";
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: white;
-}
-
-.brandMark::before,
-.miniBrand::before {
-  transform: translate(-7px, -2px);
-}
-
-.brandMark::after,
-.miniBrand::after {
-  transform: translate(0, 5px);
-}
-
-.brandMark span,
-.miniBrand span {
-  transform: translate(7px, -2px);
 }
 
 .desktopNav {
@@ -837,26 +804,6 @@ h1 > span::after {
 .composerTool .miniBrand {
   width: 16px;
   height: 16px;
-  border-radius: 5px 5px 5px 2px;
-}
-
-.composerTool .miniBrand::before,
-.composerTool .miniBrand::after,
-.composerTool .miniBrand span {
-  width: 2px;
-  height: 2px;
-}
-
-.composerTool .miniBrand::before {
-  transform: translate(-3px, -1px);
-}
-
-.composerTool .miniBrand::after {
-  transform: translate(0, 2px);
-}
-
-.composerTool .miniBrand span {
-  transform: translate(3px, -1px);
 }
 
 .composerMic {
